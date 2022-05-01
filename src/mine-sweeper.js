@@ -23,11 +23,69 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
+function minesweeper(matrix) {
+  // throw new NotImplementedError('Not implemented');
   // remove line with error and write your code here
+  let newArr = [];
+
+  matrix.map((el) => {
+    let arr = [];
+    for (let i = 0; i < el.length; i++) {
+      if (el[i] == true) {
+        arr.push(1);
+      } else {
+        arr.push(0);
+      }
+    }
+    newArr.push(arr);
+    arr = [];
+  });
+
+  let resArr = [];
+
+  let arr = [];
+  for (let i = 0; i < newArr.length; i++) {
+    for (let j = 0; j < newArr[i].length; j++) {
+      let counter = 0;
+      if (newArr[i][j - 1]) {
+        counter++;
+      }
+      if (newArr[i][j + 1]) {
+        counter++;
+      }
+
+      if (newArr[i - 1]) {
+        if (newArr[i - 1][j - 1]) {
+          counter++;
+        }
+        if (newArr[i - 1][j]) {
+          counter++;
+        }
+        if (newArr[i - 1][j + 1]) {
+          counter++;
+        }
+      }
+
+      if (newArr[i + 1]) {
+        if (newArr[i + 1][j - 1]) {
+          counter++;
+        }
+        if (newArr[i + 1][j]) {
+          counter++;
+        }
+        if (newArr[i + 1][j + 1]) {
+          counter++;
+        }
+      }
+      arr.push(counter);
+    }
+    resArr.push(arr);
+    arr = [];
+  }
+
+  return resArr;
 }
 
 module.exports = {
-  minesweeper
+  minesweeper,
 };
